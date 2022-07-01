@@ -1,8 +1,8 @@
 import {Example} from "./example.js";
 
 export class Example6 extends Example {
-    constructor(num) {
-        super(num);
+    constructor(...args) {
+        super(...args);
     }
 
     run() {

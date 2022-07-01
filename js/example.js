@@ -1,16 +1,18 @@
 export class Example {
 
-	#num;
+	#num
+	#qNum;
 
-	constructor(num) {
+	constructor(num, qNum) {
 		this.#num = num;
+		this.#qNum = qNum;
 		this.init();
 	}
 
 	init() {
 		const body = document.body;
 		body.innerHTML = "";
-		fetch(`./example${this.#num}.js`)
+		fetch(`./js/example${this.#num}.js`)
 			.then(response => response.text())
 			.then((text) => {
 				const h1 = document.createElement("h1");
@@ -32,14 +34,18 @@ export class Example {
 				text = text.replace("run()", "function()");
 
 				btn.textContent = "Run";
-				h1.textContent = `Example ${this.#num}`;
+				h1.textContent = `Example ${this.#qNum}`;
 				pre.append(code);
 				code.textContent = text;
 				body.append(h1, pre, btn);
 
 				btn.addEventListener("click", (event) => {
-					console.info(`\n\n===== Example ${this.#num} result: =====\n`);
-					this.run();
+					console.info(`\n\n===== Example ${this.#qNum} result: =====\n`);
+					try {
+						this.run();
+					} catch (error) {
+						console.error(error);
+					}
 					body.dispatchEvent(new Event("executed"));
 
 					if(btn.parentNode) {
