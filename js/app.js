@@ -17,6 +17,7 @@ export class App {
 		const examples = this.#shuffleArray(
 			[Example1, Example2, Example3, Example4, Example5, Example6, Example7, Example8, Example9, Example10, Example11]
 		);
+		// const examples = [Example1, Example2, Example3, Example4, Example5, Example6, Example7, Example8, Example9, Example10, Example11]
 		const examplesLength = examples.length;
 		let currentExampleNum = 1;
 		let example;
@@ -54,8 +55,8 @@ export class App {
 		return tempArray.map((el, i) => {
 			const exampleIndex = shuffleMap[i];
 			return {
-				exampleClass: array[exampleIndex],
-				exampleNum: exampleIndex + 1
+				exampleClass: array[i],
+				exampleNum: i + 1
 			}
 		});
 	}
