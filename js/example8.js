@@ -1,12 +1,24 @@
-import {Example} from "./example.js";
+import { Example } from './example.js'
 
 export class Example8 extends Example {
     constructor(...args) {
-        super(...args);
+        super(...args)
     }
 
     run() {
-        const result = parseInt("7*6", 10);
-        console.log(result);
+        function DoSomething() {
+            this.name = 'Alice'
+            this.greet = function () {
+                console.log('Hello, my name is ' + this.name)
+            }
+            return 42
+        }
+        DoSomething.prototype.sayHello = function () {
+            console.log('Hello from prototype!')
+        }
+        const result = new DoSomething()
+        console.log(result.hasOwnProperty('greet'))
+        console.log(result.hasOwnProperty('sayHello'))
+        console.log('result:', result)
     }
 }

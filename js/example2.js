@@ -1,19 +1,19 @@
-import {Example} from "./example.js";
+import { Example } from './example.js'
 
 export class Example2 extends Example {
     constructor(...args) {
-        super(...args);
+        super(...args)
     }
 
     run() {
-        var a = 1;
+        var a = 1
 
-        var foo = function() {
-            var a = 2;
-        };
+        var foo = function () {
+            var a = 2
+        }
 
-        foo();
+        foo()
 
-        console.log(a);
+        console.log(a)
     }
 }

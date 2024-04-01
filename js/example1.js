@@ -1,17 +1,49 @@
-import {Example} from "./example.js";
+import { Example } from './example.js'
 
 export class Example1 extends Example {
     constructor(...args) {
-        super(...args);
+        super(...args)
     }
 
     run() {
-        console.log("I");
+        console.log('1')
+
+        Promise.resolve().then(() => {
+            console.log('2')
+
+            Promise.resolve().then(() => {
+                console.log('3')
+            })
+
+            setTimeout(() => {
+                console.log('4')
+
+                Promise.resolve().then(() => {
+                    console.log('5')
+                })
+
+                setTimeout(() => {
+                    console.log('6')
+                }, 0)
+            }, 0)
+
+            Promise.resolve().then(() => {
+                console.log('7')
+            })
+
+            console.log('8')
+        })
 
         setTimeout(() => {
-            console.log("love")
-        }, 0);
+            console.log('9')
 
-        console.log("javascript");
+            Promise.resolve().then(() => {
+                console.log('10')
+            })
+
+            console.log('11')
+        }, 0)
+
+        console.log('12')
     }
 }
