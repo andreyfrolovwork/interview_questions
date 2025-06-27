@@ -1,76 +1,103 @@
-import { Example1 } from './example1.js'
-import { Example2 } from './example2.js'
-import { Example3 } from './example3.js'
-import { Example4 } from './example4.js'
-import { Example5 } from './example5.js'
-import { Example6 } from './example6.js'
-import { Example7 } from './example7.js'
-import { Example8 } from './example8.js'
-import { Example9 } from './example9.js'
-import { Example10 } from './example10.js'
-import { Example11 } from './example11.js'
-import { Example12 } from './example12.js'
-export class App {
-    constructor() {
-        const body = document.body
-        const examples = this.#shuffleArray([
-            Example1,
-            Example2,
-            Example3,
-            Example4,
-            Example5,
-            Example6,
-            Example7,
-            Example8,
-            Example9,
-            Example10,
-            Example11,
-            Example12,
-        ])
-        const examplesLength = examples.length
-        let currentExampleNum = 1
-        let example
+(function () {
+    class App {
+        constructor(tasks) {
+            this.tasks = tasks
+            this.currentTask = null
+            this.originalConsole = { ...console }
 
-        const showExample = () => {
-            example = examples[currentExampleNum - 1]
-            new example.exampleClass(example.exampleNum, currentExampleNum)
+            this.elements = {
+                taskList: document.getElementById('task-list'),
+                taskTitle: document.getElementById('task-title'),
+                taskCode: document.getElementById('task-code'),
+                runBtn: document.getElementById('run-btn'),
+                output: document.getElementById('output'),
+            }
+
+            this.init()
+            this.patchConsole()
         }
 
-        showExample()
-
-        body.addEventListener('next', (event) => {
-            currentExampleNum++
-            if (currentExampleNum <= examplesLength) {
-                console.log('-----------------------------')
-                showExample()
+        patchConsole() {
+            const outputEl = this.elements.output
+            const customConsole = (method, ...args) => {
+                this.originalConsole[method](...args)
+                const line = document.createElement('div')
+                line.className = `output-line output-${method}`
+                line.textContent = args
+                    .map((arg) => {
+                        if (arg instanceof Element && arg.outerHTML) {
+                            return arg.outerHTML
+                        }
+                        try {
+                            return JSON.stringify(arg, null, 2)
+                        } catch (e) {
+                            return String(arg)
+                        }
+                    })
+                    .join(' ')
+                outputEl.appendChild(line)
+                outputEl.scrollTop = outputEl.scrollHeight
             }
-        })
 
-        body.addEventListener('executed', (event) => {
-            if (currentExampleNum === examplesLength) {
-                document.body.querySelector('button').remove()
+            Object.keys(console).forEach((method) => {
+                if (typeof console[method] === 'function') {
+                    console[method] = (...args) =>
+                        customConsole(method, ...args)
+                }
+            })
+        }
+
+        init() {
+            this.elements.taskList.innerHTML = ''
+            this.tasks.forEach((task, index) => {
+                const li = document.createElement('li')
+                li.textContent = `Task ${index + 1}`
+                li.addEventListener('click', () => this.selectTask(task, li))
+                this.elements.taskList.appendChild(li)
+            })
+
+            this.elements.runBtn.addEventListener('click', () =>
+                this.runCurrentTask(),
+            )
+
+            if (this.tasks.length > 0) {
+                this.selectTask(
+                    this.tasks[0],
+                    this.elements.taskList.firstChild,
+                )
             }
-        })
+        }
+
+        selectTask(task, liElement) {
+            this.currentTask = task
+
+            const activeItem = this.elements.taskList.querySelector('.active')
+            if (activeItem) {
+                activeItem.classList.remove('active')
+            }
+            liElement.classList.add('active')
+
+            this.elements.taskTitle.textContent = `Task ${task.qNum}`
+            this.elements.taskCode.textContent = task.code
+            this.elements.output.innerHTML = ''
+        }
+
+        runCurrentTask() {
+            if (!this.currentTask) return
+            this.elements.output.innerHTML = ''
+            try {
+                this.currentTask.run()
+            } catch (e) {
+                console.error(e)
+            }
+        }
     }
 
-    #shuffleArray(array) {
-        const tempArray = array.map((el, i) => i)
-        // const shuffleMap = tempArray.sort((a, b) => {
-        //   const random = Math.random();
-        //   return random < 0.33 ? -1 : random < 0.66 ? 1 : 0;
-        // });
-
-        return tempArray.map((el, i) => {
-            // const exampleIndex = tempArray[i]
-            return {
-                exampleClass: array[i],
-                exampleNum: i + 1,
-            }
-        })
-    }
-}
-
-new App()
+    // Initialize the app with the globally available tasks
+    window.addEventListener('load', () => {
+        new App(window.interview_tasks || [])
+    })
+})()
 
 
 /* 

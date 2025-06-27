@@ -1,11 +1,7 @@
-import { Example } from './example.js'
-
-export class Example2 extends Example {
-    constructor(...args) {
-        super(...args)
-    }
-
-    run() {
+window.interview_tasks = window.interview_tasks || []
+window.interview_tasks.push({
+    qNum: 2,
+    run: function () {
         var a = 1
 
         var foo = function () {
@@ -15,5 +11,14 @@ export class Example2 extends Example {
         foo()
 
         console.log(a)
-    }
+    },
+    code: `var a = 1
+
+var foo = function () {
+    var a = 2
 }
+
+foo()
+
+console.log(a)`,
+})

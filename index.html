@@ -1,33 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Interactive interview</title>
-    <style>
-
-        body {
-            padding: 10px 30px;
-        }
-
-        pre {
-            border: 1px dotted gray;
-            margin: 20px 0;
-            display: table;
-            padding: 20px;
-            background-color: #1f1f1f;
-            color: #93cdff;
-            font-size: 1.2rem;
-        }
-
-        button {
-            margin-right: 10px;
-            font-weight: bold;
-            font-size: 1rem;
-            padding: 10px 50px;
-        }
-    </style>
-</head>
-<body>
-    <script src="/js/app.js" type="module"></script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>JS Interview Questions</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="app">
+            <aside class="sidebar">
+                <h2>Tasks</h2>
+                <ul id="task-list"></ul>
+            </aside>
+            <main class="main-content">
+                <div id="task-container">
+                    <h1 id="task-title"></h1>
+                    <pre><code id="task-code"></code></pre>
+                    <button id="run-btn">Run</button>
+                    <div class="output-container">
+                        <h2>Output:</h2>
+                        <pre id="output"></pre>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="./js/example1.js"></script>
+        <script src="./js/example2.js"></script>
+        <script src="./js/example3.js"></script>
+        <script src="./js/example4.js"></script>
+        <script src="./js/example5.js"></script>
+        <script src="./js/example6.js"></script>
+        <script src="./js/example7.js"></script>
+        <script src="./js/example8.js"></script>
+        <script src="./js/example9.js"></script>
+        <script src="./js/example10.js"></script>
+        <script src="./js/example11.js"></script>
+        <script src="./js/example12.js"></script>
+        <script src="./js/app.js"></script>
+    </body>
 </html>
