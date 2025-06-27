@@ -78,8 +78,14 @@
             liElement.classList.add('active')
 
             this.elements.taskTitle.textContent = `Task ${task.qNum}`
-            this.elements.taskCode.textContent = task.code
             this.elements.output.innerHTML = ''
+
+            // Generate highlighted code and set it
+            const highlightedCode = hljs.highlight(task.code, {
+                language: 'javascript',
+                ignoreIllegals: true,
+            }).value
+            this.elements.taskCode.innerHTML = highlightedCode
         }
 
         runCurrentTask() {

@@ -5,6 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>JS Interview Questions</title>
         <link rel="stylesheet" href="style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+        />
     </head>
     <body>
         <div id="app">
@@ -17,13 +21,14 @@
                     <h1 id="task-title"></h1>
                     <pre><code id="task-code"></code></pre>
                     <button id="run-btn">Run</button>
-                    <div class="output-container">
+                    <div class="output-container" style="visibility: hidden">
                         <h2>Output:</h2>
                         <pre id="output"></pre>
                     </div>
                 </div>
             </main>
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
         <script src="./js/example1.js"></script>
         <script src="./js/example2.js"></script>
         <script src="./js/example3.js"></script>

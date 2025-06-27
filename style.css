@@ -12,10 +12,11 @@ body {
 }
 
 .sidebar {
-    width: 250px;
+    width: 100px;
+    min-width: 100px;
     background-color: #333;
     color: white;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
     overflow-y: auto;
 }
@@ -60,13 +61,12 @@ body {
 }
 
 pre {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
     padding: 20px;
     border-radius: 4px;
     overflow-x: auto;
     font-family: 'Courier New', Courier, monospace;
     font-size: 14px;
+    font-weight: bold;
 }
 
 code {

@@ -2,47 +2,36 @@ window.interview_tasks = window.interview_tasks || []
 window.interview_tasks.push({
     qNum: 11,
     run: function () {
-        const container = document.createElement('div')
-        const p1 = document.createElement('p')
-        const p2 = document.createElement('p')
-
-        p1.textContent = 'Paragraph 1'
-        p2.textContent = 'Paragraph 2'
-        p1.style.marginBottom = '30px'
-        p2.style.marginTop = '40px'
-
-        container.append(p1, p2)
-        container.style.visibility = 'hidden'
-        container.style.position = 'absolute'
-
-        document.body.append(container)
-
-        const distance =
-            p2.getBoundingClientRect().top - p1.getBoundingClientRect().bottom
-
-        container.remove()
-
-        console.log(distance)
+        const collection = {
+            one: 1,
+            two: 2,
+            three: 3,
+            [Symbol.iterator]: function* () {
+              for (let key in this) {
+                yield this[key];
+              }
+            },
+          };
+          const iterator = collection[Symbol.iterator]();
+          console.log(iterator.next()); // {value: 1, done: false}
+          console.log(iterator.next()); // {value: 2, done: false}
+          console.log(iterator.next()); // {value: 3, done: false}
+          console.log(iterator.next()); // {value: undefined, done: true}
     },
-    code: `const container = document.createElement('div')
-const p1 = document.createElement('p')
-const p2 = document.createElement('p')
-
-p1.textContent = 'Paragraph 1'
-p2.textContent = 'Paragraph 2'
-p1.style.marginBottom = '30px'
-p2.style.marginTop = '40px'
-
-container.append(p1, p2)
-container.style.visibility = 'hidden'
-container.style.position = 'absolute'
-
-document.body.append(container)
-
-const distance =
-    p2.getBoundingClientRect().top - p1.getBoundingClientRect().bottom
-
-container.remove()
-
-console.log(distance)`,
+    code: `const collection = {
+    one: 1,
+    two: 2,
+    three: 3,
+    [Symbol.iterator]: function* () {
+        for (let key in this) {
+            yield this[key];
+        }
+    },
+};
+const iterator = collection[Symbol.iterator]();
+console.log(iterator.next()); 
+console.log(iterator.next()); 
+console.log(iterator.next()); 
+console.log(iterator.next()); `,
 })
+
